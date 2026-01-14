@@ -1,8 +1,6 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import math
 
 Hub_Height = 6
@@ -105,11 +103,13 @@ with col1:
         st.markdown(f"**:blue[Vertical Angle is:]**", text_alignment="right")
         st.markdown(f"**:blue[Target Angle is:]**", text_alignment="right")
         st.markdown(f"**:blue[Time of Flight is:]**", text_alignment="right")
+        st.markdown(f"**:blue[Horizontal Angle to move is:]**", text_alignment="right")
     with mark2:
         st.markdown(f"**:red[{CorrectedDistance:.2f}]**")
         st.markdown(f"**:red[{CorrectedVertAngle:.2f}]**")
         st.markdown(f"**:red[{CorrectedTargetAngle:.2f}]**")
         st.markdown(f"**:red[{CorrectedTimeOfFlight:.2f}]**")
+        st.markdown(f"**:red[{CorrectedAngleToTarget:.2f}]**")
 
 def trajectory():
     x = [0]
@@ -142,7 +142,7 @@ df = pd.concat([df,dfc])
 df = pd.concat([df,hub])
 
 temp = df.query(f"x > {CorrectedDistance - 1.75} and x < {CorrectedDistance} and y < {Hub_Height} and type != 'Hub opening' and type != 'Direct trajectory'")
-print(temp)
+
 
 fig = px.line(df, x=df["x"], y=df["y"], title="Vertical simulation", labels={'x':'Horizontal distance(feet)','y':'Vertical distance(feet)'}, color="type")
 fig.add_scatter(x=[distance,CorrectedDistance], y=[Hub_Height,Hub_Height], name="Hub", mode="markers", marker=dict(color="red", opacity=0.5))
