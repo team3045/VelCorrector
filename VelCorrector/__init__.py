@@ -47,17 +47,7 @@ def HorizontalAngleToMove(selfAngle = 0.0, targetAngle = 0.0):
     return angleToMove
 
 def TimeofFlight(s = 0.0, angle = 0.0):
-    try:
-        top = ((1/2)*G) + (math.sqrt((((-1/2)*G)**2) - 4*(s*math.sin(angle))*(height)))
-    except:
-        ValueError
-        top = ((1/2)*G) + (math.sqrt(abs((((-1/2)*G)**2) - 4*(s*math.sin(angle))*(height))))
-    try:
-        time = top / (2*(s*math.sin(angle)))
-    except:
-        ValueError
-        return 0
-
+    time = distance/(math.cos(angle)*s)
     return time
 
 def VelCorrection(velocity = (0,0), flightTime = 0.0, targetposition = (0,0)):
